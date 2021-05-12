@@ -1,0 +1,24 @@
+def SERVER_NAME = params.getOrDefault("serverName", "")
+def LOCATION = params.getOrDefault("location", "")
+
+pipeline {
+    agent any
+
+    parameters {
+        string(defaultValue: SERVER_NAME, description: '', name: 'serverName', trim: true);
+        string(defaultValue: LOCATION, description: '', name: 'location', trim: true);
+    }
+
+    stages {
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SazzadSH/demo-pipeline.git'
+            }
+        }
+        stage('run-playbook') {
+            steps {
+                ansiblePlaybook becomeUser: 'sazzad', credentialsId: 'sh2', disableHostKeyChecking: true, extras: '--extra-vars "ansible_sudo_pass=1234"', inventory: 'inventory', playbook: 'copy_files.yml', sudoUser: 'sazzad'
+            }
+        }
+    }
+}
