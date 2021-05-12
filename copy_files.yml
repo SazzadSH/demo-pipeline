@@ -2,6 +2,8 @@
 - hosts: all
   become: true
   tasks:
+  collections:
+  - name: ansible.posix
 
   - name: Copy files
     ansible.posix.synchronize:
