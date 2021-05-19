@@ -1,0 +1,4 @@
+- name: Copy files
+  synchronize:
+    src: README.md
+    dest: /var/www/html

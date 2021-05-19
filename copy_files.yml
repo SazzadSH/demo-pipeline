@@ -1,12 +1,17 @@
 ---
 - hosts: all
   become: true
-  tasks:
+  roles:
+    - roleA
 
-  - name: Copy files
-    synchronize:
-      src: README.md
-      dest: /var/www/html
+#- hosts: all
+#  become: true
+#  tasks:
+
+#  - name: Copy files
+#    synchronize:
+#      src: README.md
+#      dest: /var/www/html
 #    copy:
 #      src: README.md
 #      dest: /var/www/html
